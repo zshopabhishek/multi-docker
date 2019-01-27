@@ -1,0 +1,23 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t achordia/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run achordia/react-test npm run test -- --coverage
+
+after_success:
+  - docker build -t achordia/multi-client:v0.0.1 ./client
+  - docker build -t achordia/multi-nginx:v0.0.1 ./client
+  - docker build -t achordia/multi-server:v0.0.1 ./client
+  - docker build -t achordia/multi-worker:v0.0.1 ./client
+
+#Log in to docker CLI
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# Take those images and push them to docker hub 
+- docker push achordia/multi-client:v0.0.1
+- docker push achordia/multi-nginx:v0.0.1
+- docker push achordia/multi-server:v0.0.1
+- docker push achordia/multi-worker:v0.0.1
