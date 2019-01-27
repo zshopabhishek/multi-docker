@@ -9,15 +9,15 @@ script:
   - docker run achordia/react-test npm run test -- --coverage
 
 after_success:
-  - docker build -t achordia/multi-client:v0.0.1 ./client
-  - docker build -t achordia/multi-nginx:v0.0.1 ./client
-  - docker build -t achordia/multi-server:v0.0.1 ./client
-  - docker build -t achordia/multi-worker:v0.0.1 ./client
+  - docker build -t achordia/multi-client ./client
+  - docker build -t achordia/multi-nginx ./nginx
+  - docker build -t achordia/multi-server ./server
+  - docker build -t achordia/multi-worker ./worker
 
 #Log in to docker CLI
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take those images and push them to docker hub 
-- docker push achordia/multi-client:v0.0.1
-- docker push achordia/multi-nginx:v0.0.1
-- docker push achordia/multi-server:v0.0.1
-- docker push achordia/multi-worker:v0.0.1
+- docker push achordia/multi-client
+- docker push achordia/multi-nginx
+- docker push achordia/multi-server
+- docker push achordia/multi-worker
