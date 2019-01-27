@@ -15,9 +15,9 @@ after_success:
   - docker build -t achordia/multi-worker ./worker
 
 #Log in to docker CLI
-- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take those images and push them to docker hub 
-- docker push achordia/multi-client
-- docker push achordia/multi-nginx
-- docker push achordia/multi-server
-- docker push achordia/multi-worker
+  - docker push achordia/multi-client
+  - docker push achordia/multi-nginx
+  - docker push achordia/multi-server
+  - docker push achordia/multi-worker
